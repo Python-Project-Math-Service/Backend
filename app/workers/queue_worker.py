@@ -3,6 +3,7 @@ from app.services import calculator
 
 math_task_queue = asyncio.Queue()
 
+
 async def process_math_tasks():
     while True:
         task = await math_task_queue.get()

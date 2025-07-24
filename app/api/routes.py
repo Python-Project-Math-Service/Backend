@@ -10,6 +10,7 @@ from app.models.operation import OperationType, Operation
 
 router = APIRouter()
 
+
 @router.post("/pow")
 async def calculate_power(request: PowRequest, db: Session = Depends(get_db)):
     result = calculator.calculate_pow(request.base, request.exponent)
@@ -22,6 +23,7 @@ async def calculate_power(request: PowRequest, db: Session = Depends(get_db)):
     db.add(new_op)
     db.commit()
     return {"result": result}
+
 
 @router.post("/factorial")
 async def calculate_factorial(request: FactorialRequest, db: Session = Depends(get_db)):
@@ -38,6 +40,7 @@ async def calculate_factorial(request: FactorialRequest, db: Session = Depends(g
     db.commit()
     return {"result": result}
 
+
 @router.post("/fibonacci")
 async def calculate_fibonacci(request: FibonacciRequest, db: Session = Depends(get_db)):
     future = asyncio.get_event_loop().create_future()
@@ -52,4 +55,3 @@ async def calculate_fibonacci(request: FibonacciRequest, db: Session = Depends(g
     db.add(new_op)
     db.commit()
     return {"result": result}
-
