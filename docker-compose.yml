@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: math_microservice
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../math_operations.db:/math_operations.db
+    restart: always
+
+  frontend:
+    build:
+      context: ../Frontend
+      dockerfile: Dockerfile
+    container_name: frontend_static
+    ports:
+      - "80:80"                     # hostPort:containerPort
+    depends_on:
+      - fastapi                     # wait until API container is healthy
+    restart: always
